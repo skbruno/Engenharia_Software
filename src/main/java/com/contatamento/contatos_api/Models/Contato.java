@@ -1,0 +1,41 @@
+package com.contatamento.contatos_api.Models;
+
+import jakarta.persistence.*;
+
+@Entity
+public class Contato {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String nome;
+
+    @Column(unique = true)
+    private Integer telefone;
+
+    public Contato(){}
+
+    public boolean CompararTelefone(int telefone){
+        if(this.telefone == telefone){
+            return true;
+        }
+
+        return false;
+    }
+
+    public Contato(String nome, int telefone){
+        this.nome = nome;
+        this.telefone = telefone;
+    }
+
+    public String GetNome(){
+        return this.nome;
+    }
+
+    public Integer GetTelefone(){
+        return this.telefone;
+    }
+
+    public Long GetId(){
+        return this.id;
+    }
+}
