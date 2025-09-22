@@ -1,0 +1,38 @@
+version: "3.9"
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: contatos-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: contatosdb
+      MYSQL_USER: contatos
+      MYSQL_PASSWORD: contatos123
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - contatos-net
+
+  app:
+    build: .
+    container_name: contatos-api
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://contatos-db:3306/contatosdb
+      SPRING_DATASOURCE_USERNAME: contatos
+      SPRING_DATASOURCE_PASSWORD: contatos123
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: "true"
+    ports:
+      - "8080:8080"
+    networks:
+      - contatos-net
+
+volumes:
+  db_data:
+
+networks:
+  contatos-net:
