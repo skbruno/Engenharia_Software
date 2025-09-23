@@ -114,12 +114,12 @@
                     <a class="nav-link active" href="#">
                         <i class="fa-solid fa-address-book me-2"></i>Contatos
                     </a>
-                    <a class="nav-link" href="#">
+                    <!-- <a class="nav-link" href="#">
                         <i class="fa-solid fa-star me-2"></i>Favoritos
                     </a>
                     <a class="nav-link" href="#">
                         <i class="fa-solid fa-trash-can me-2"></i>Lixeira
-                    </a>
+                    </a> -->
                 </nav>
             </div>
             <div class="d-flex flex-column">
@@ -206,6 +206,7 @@
                     <div class="card-info">
                         <i class="fa-solid fa-star star-icon ${contact.favorito ? 'favorite' : ''}" onclick="favoritarContato(${contact.id}, ${contact.favorito})"></i>
                         <span class="fs-5">${contact.nome}</span>
+                        <span class="fs-5" ali>${contact.numero}</span>
                     </div>
                     <div class="dropdown">
                         <button class="btn btn-sm btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
