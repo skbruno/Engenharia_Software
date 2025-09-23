@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +48,12 @@ public class ContatoController {
     @PostMapping
     public ResponseEntity<ResponseMessage> criar(@RequestBody CreateContato dto) {
         ResponseMessage responseMessage = new ResponseMessage();
+
+        if (dto.nome.isEmpty()){
+            responseMessage.messagem = "O campo nome não pode esta em branco.";
+            return ResponseEntity.badRequest().body(responseMessage);
+        }
+
         List<Contato> contatos = _service.PegarListaDeContato();
 
         for (Contato contatoItem : contatos) {
@@ -56,10 +63,10 @@ public class ContatoController {
             }
         }
 
-        _service.CriarNovoContato(dto.toContato());
+        URI location = URI.create("/contatos/");
 
         responseMessage.messagem = "Contato criado com sucesso.";
-        return ResponseEntity.ok(responseMessage);
+        return ResponseEntity.created(location).body(responseMessage);
     }
 
 
