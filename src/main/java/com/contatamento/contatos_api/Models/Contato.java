@@ -10,7 +10,7 @@ public class Contato {
     private String nome;
 
     @Column(unique = true)
-    private Integer telefone;
+    private Long telefone;
 
     public Contato(){}
 
