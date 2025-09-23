@@ -63,4 +63,24 @@ public class ContatoService implements IContatoService {
             throw new RuntimeException("Ocorreu um erro interno", e);
         }
     }
+
+    public void AlterarContato(Contato contato, Long id)
+    {
+        try
+        {
+            Contato usuario = _repository.findById(id).orElse(null);
+            if (usuario == null){
+                throw new Exception("Não foi possivel encontrar o id");
+            }
+
+            usuario.setNome(contato.GetNome());
+            usuario.setTelefone(contato.GetTelefone());
+            _repository.save(usuario);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Ocorreu um erro interno", e);
+        }
+    }
+
+
 }

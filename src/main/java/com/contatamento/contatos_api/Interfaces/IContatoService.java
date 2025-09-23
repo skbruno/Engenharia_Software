@@ -10,4 +10,5 @@ public interface IContatoService {
     List<Contato> PegarListaDeContato();
     ContatoResponse BuscarContatoPorId(Long id);
     void DeletarContato(Long id);
+    void AlterarContato(Contato contato, Long id);
 }

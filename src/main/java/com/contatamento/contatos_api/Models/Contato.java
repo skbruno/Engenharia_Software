@@ -38,4 +38,12 @@ public class Contato {
     public Long GetId(){
         return this.id;
     }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setTelefone(Integer telefone) {
+        this.telefone = telefone;
+    }
 }

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/contatos")
 public class ContatoController {
 
@@ -78,8 +79,24 @@ public class ContatoController {
         _service.DeletarContato(id);
 
         ResponseMessage responseMessage = new ResponseMessage();
-        responseMessage.messagem = "Crontato Criado Com sucesso.";
+        responseMessage.messagem = "Contato Deletado Com sucesso.";
 
         return ResponseEntity.ok(responseMessage);
+    }
+
+    @PutMapping("/alterar/{id}")
+    public ResponseEntity<ResponseMessage> alterarContato(@RequestBody CreateContato dto, @PathVariable Long id)
+    {
+        try
+        {
+            _service.AlterarContato(dto.toContato(), id);
+            ResponseMessage responseMessage = new ResponseMessage();
+            responseMessage.messagem = "Alterado com sucesso.";
+            return ResponseEntity.ok(responseMessage);
+        } catch (Exception e) {
+            ResponseMessage responseMessage = new ResponseMessage();
+            responseMessage.messagem = "Erro ao alterar contato.";
+            return ResponseEntity.ok(responseMessage);
+        }
     }
 }
