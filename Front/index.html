@@ -17,6 +17,22 @@
             height: 100vh;
         }
 
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .contact-content {
+            display: flex;
+            gap: 20px;
+        }
+
+        .icon-content {
+            display: flex;
+            align-items: center;
+        }
+
         .sidebar {
             width: 250px;
             background-color: #fff;
@@ -205,7 +221,16 @@
                 <div class="contact-card">
                     <div class="card-info">
                         <i class="fa-solid fa-star star-icon ${contact.favorito ? 'favorite' : ''}" onclick="favoritarContato(${contact.id}, ${contact.favorito})"></i>
-                        <span class="fs-5">${contact.nome}</span>
+                        <div class="contact-info">
+                            <div class="contact-content">
+                                <div class="icon-content"><i class="fa-solid fa-user" style="color: #bcbdbd;"></i></div>
+                                <span class="fs-5">${contact.nome}</span>
+                            </div>
+                            <div class="contact-content">
+                                <div class="icon-content"><i class="fa-solid fa-phone" style="color: #bcbdbd;"></i></div>
+                                <span class="fs-5">${contact.numero}</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="dropdown">
                         <button class="btn btn-sm btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
