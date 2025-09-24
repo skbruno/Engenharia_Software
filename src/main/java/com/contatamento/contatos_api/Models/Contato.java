@@ -14,7 +14,7 @@ public class Contato {
 
     public Contato(){}
 
-    public boolean CompararTelefone(int telefone){
+    public boolean CompararTelefone(Long telefone){
         if(this.telefone == telefone){
             return true;
         }
@@ -22,7 +22,7 @@ public class Contato {
         return false;
     }
 
-    public Contato(String nome, int telefone){
+    public Contato(String nome, Long telefone){
         this.nome = nome;
         this.telefone = telefone;
     }
@@ -31,7 +31,7 @@ public class Contato {
         return this.nome;
     }
 
-    public Integer GetTelefone(){
+    public Long GetTelefone(){
         return this.telefone;
     }
 
@@ -43,7 +43,7 @@ public class Contato {
         this.nome = nome;
     }
 
-    public void setTelefone(Integer telefone) {
+    public void setTelefone(Long telefone) {
         this.telefone = telefone;
     }
 }
