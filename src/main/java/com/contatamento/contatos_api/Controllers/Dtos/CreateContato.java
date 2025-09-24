@@ -6,7 +6,7 @@ import com.contatamento.contatos_api.Models.Contato;
 public class CreateContato {
 
     public String nome;
-    public Integer numero;
+    public Long numero;
 
     public CreateContato() {}
 
