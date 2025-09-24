@@ -10,11 +10,11 @@ public class Contato {
     private String nome;
 
     @Column(unique = true)
-    private Long telefone;
+    private Integer telefone;
 
     public Contato(){}
 
-    public boolean CompararTelefone(Long telefone){
+    public boolean CompararTelefone(Integer telefone){
         if(this.telefone == telefone){
             return true;
         }
@@ -22,7 +22,7 @@ public class Contato {
         return false;
     }
 
-    public Contato(String nome, Long telefone){
+    public Contato(String nome, Integer telefone){
         this.nome = nome;
         this.telefone = telefone;
     }
@@ -31,7 +31,7 @@ public class Contato {
         return this.nome;
     }
 
-    public Long GetTelefone(){
+    public Integer GetTelefone(){
         return this.telefone;
     }
 
@@ -43,7 +43,7 @@ public class Contato {
         this.nome = nome;
     }
 
-    public void setTelefone(Long telefone) {
+    public void setTelefone(Integer telefone) {
         this.telefone = telefone;
     }
 }

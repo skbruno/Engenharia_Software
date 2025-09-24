@@ -63,6 +63,11 @@ public class ContatoController {
             }
         }
 
+        Contato contato = new Contato();
+        contato.setNome(dto.nome);
+        contato.setTelefone(dto.numero);
+
+        _service.CriarNovoContato(contato);
         URI location = URI.create("/contatos/");
 
         responseMessage.messagem = "Contato criado com sucesso.";
