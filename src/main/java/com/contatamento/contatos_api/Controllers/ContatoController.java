@@ -5,6 +5,7 @@ import com.contatamento.contatos_api.Controllers.Dtos.CreateContato;
 import com.contatamento.contatos_api.Controllers.Dtos.ResponseMessage;
 import com.contatamento.contatos_api.Interfaces.IContatoService;
 import com.contatamento.contatos_api.Models.Contato;
+import jakarta.websocket.server.PathParam;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -109,6 +110,19 @@ public class ContatoController {
             ResponseMessage responseMessage = new ResponseMessage();
             responseMessage.messagem = "Erro ao alterar contato.";
             return ResponseEntity.ok(responseMessage);
+        }
+    }
+
+    @DeleteMapping("/deletar-por-prefixo")
+    public ResponseEntity<ResponseMessage> deletarPorPrefixo(@RequestParam String prefixo) {
+        ResponseMessage responseMessage = new ResponseMessage();
+        try {
+            _service.DeletarContatosPorPrefixo(prefixo);
+            responseMessage.messagem = "Contatos deletados com sucesso.";
+            return ResponseEntity.ok(responseMessage);
+        } catch (Exception e) {
+            responseMessage.messagem = "Erro ao deletar contatos: " + e.getMessage();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseMessage);
         }
     }
 }

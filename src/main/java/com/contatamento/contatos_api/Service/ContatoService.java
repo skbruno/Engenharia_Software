@@ -82,5 +82,21 @@ public class ContatoService implements IContatoService {
         }
     }
 
+    @Override
+    public void DeletarContatosPorPrefixo(String prefixo) {
+        try {
+            List<Contato> contatos = (List<Contato>) _repository.findAll();
 
+            if (contatos == null || contatos.isEmpty()){
+                throw new Exception("Não foi possivel encontrar o id");
+            }
+
+            contatos.stream()
+                    .filter(c -> c.GetNome().startsWith(prefixo))
+                    .forEach(_repository::delete);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

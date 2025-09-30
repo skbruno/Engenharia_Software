@@ -11,4 +11,5 @@ public interface IContatoService {
     ContatoResponse BuscarContatoPorId(Long id);
     void DeletarContato(Long id);
     void AlterarContato(Contato contato, Long id);
+    void DeletarContatosPorPrefixo(String prefixo);
 }
