@@ -83,7 +83,8 @@ public class ContatoService implements IContatoService {
     }
 
     @Override
-    public void DeletarContatosPorPrefixo(String prefixo) {
+    public void DeletarContatosPorPrefixo(String prefixo)
+    {
         try {
             List<Contato> contatos = (List<Contato>) _repository.findAll();
 
@@ -92,7 +93,7 @@ public class ContatoService implements IContatoService {
             }
 
             contatos.stream()
-                    .filter(c -> c.GetNome().startsWith(prefixo))
+                    .filter(c -> c.GetNome().toLowerCase().startsWith(prefixo.toLowerCase()))
                     .forEach(_repository::delete);
 
         } catch (Exception e) {

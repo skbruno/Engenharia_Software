@@ -33,6 +33,13 @@
             align-items: center;
         }
 
+        .modal {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+        }
+
         .sidebar {
             width: 250px;
             background-color: #fff;
@@ -185,6 +192,19 @@
         <div class="alphabet-index">
         </div>
 
+
+        <div id="popupPrefixo" class="modal" style="display:none;">
+            <div class="modal-content" style="background:#fff; padding:20px; border-radius:8px; width:300px; margin:100px auto; box-shadow:0 2px 8px rgba(0,0,0,.3);">
+                <h5>Excluir por Prefixo</h5>
+                <input type="text" id="prefixoInput" placeholder="Digite o prefixo" class="form-control" />
+                <br>
+                <div style="display:flex; justify-content: space-between; gap:10px;">
+                    <button onclick="excluirPrefixo(document.getElementById('prefixoInput').value)" class="btn btn-primary w-50">Excluir</button>
+                    <button onclick="fecharPopUpPrefixo()" class="btn btn-danger w-50">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -237,8 +257,9 @@
                             <i class="fa-solid fa-ellipsis-vertical"></i>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/editarContato.html?id=${contact.id}">Editar</a></li>
-                            <li><a class="dropdown-item" href="#" onclick="excluirContato(${contact.id})">Excluir</a></li>
+                            <li><a class="dropdown-item" href="/editarContato.html?id=${contact.id}"><i class="fas fa-edit"></i> Editar</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="excluirContato(${contact.id})"><i class="fas fa-trash"></i> Excluir</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="PopUpExcluirPrefixo()"><i class="fa-solid fa-quote-right"></i> Excluir por Prefixo</a></li>
                         </ul>
                     </div>
                 </div>
@@ -269,6 +290,47 @@
             }
         }
 
+        function PopUpExcluirPrefixo() 
+        {
+        document.getElementById("popupPrefixo").style.display = "block";
+        }
+
+        function fecharPopUpPrefixo() 
+        {
+        document.getElementById("popupPrefixo").style.display = "none";
+        }
+
+
+        async function excluirPrefixo(prefixo) 
+        {
+            prefixo = prefixo.trim();
+            if (!prefixo) {
+                alert("Digite um prefixo!");
+                return;
+            }
+
+            try {
+                const urlDeletePrefixo = `http://localhost:8080/contatos/deletar-por-prefixo?prefixo=${prefixo}`;
+                const response = await fetch(urlDeletePrefixo, { method: 'DELETE' });
+
+                if (response.ok) 
+                {
+                    alert("Contatos excluídos com sucesso");
+                    await listarContatos();
+                } 
+                else 
+                {
+                    throw new Error(`Falha ao excluir o contato: ${response.status}`);
+                }
+            } catch (error) 
+            {
+                console.error("Erro na exclusão:", error);
+                alert("Não foi possível excluir o contato tente novamente mais tarde");
+            }
+
+            fecharPopUpPrefixo();
+        }
+
         async function excluirContato(id) {
             if (!confirm('Tem certeza que deseja excluir este contato?')) {
                 return;
@@ -281,7 +343,8 @@
                     console.log(`Contato com ID ${id} excluído com sucesso!`);
                     await listarContatos();
                 }
-                else {
+                else 
+                {
                     throw new Error(`Falha ao excluir o contato: ${response.status}`);
                 }
             }
