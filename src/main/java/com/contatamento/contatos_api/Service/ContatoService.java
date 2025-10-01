@@ -18,7 +18,7 @@ public class ContatoService implements IContatoService {
         this._repository = repository;
     }
 
-    public void CriarNovoContato(Contato contato){
+    public void CriarContato(Contato contato){
         try {
             _repository.save(contato);
         } catch (Exception e) {
@@ -26,7 +26,7 @@ public class ContatoService implements IContatoService {
         }
     }
 
-    public List<Contato> PegarListaDeContato(){
+    public List<Contato> ListarContato(){
         try {
             List<Contato> contatos = (List<Contato>) _repository.findAll();
 
@@ -37,7 +37,7 @@ public class ContatoService implements IContatoService {
         }
     }
 
-    public ContatoResponse BuscarContatoPorId(Long id){
+    public ContatoResponse BuscarContatoId(Long id){
         try {
             Contato contato = _repository.findById(id).orElse(null);
 
@@ -83,7 +83,7 @@ public class ContatoService implements IContatoService {
     }
 
     @Override
-    public void DeletarContatosPorPrefixo(String prefixo)
+    public void DeletarPrefixo(String prefixo)
     {
         try {
             List<Contato> contatos = (List<Contato>) _repository.findAll();

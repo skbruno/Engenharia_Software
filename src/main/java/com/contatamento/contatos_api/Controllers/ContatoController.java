@@ -29,7 +29,7 @@ public class ContatoController {
     @GetMapping
     public ResponseEntity<List<ContatoResponse>> listar() {
         List<ContatoResponse> listaDeContatos = new ArrayList<>();
-        List<Contato> contatos = _service.PegarListaDeContato();
+        List<Contato> contatos = _service.ListarContato();
 
         if (contatos.isEmpty()){
             return  ResponseEntity.notFound().build();
@@ -55,7 +55,7 @@ public class ContatoController {
             return ResponseEntity.badRequest().body(responseMessage);
         }
 
-        List<Contato> contatos = _service.PegarListaDeContato();
+        List<Contato> contatos = _service.ListarContato();
 
         for (Contato contatoItem : contatos) {
             if (contatoItem.CompararTelefone(dto.numero)) {
@@ -68,7 +68,7 @@ public class ContatoController {
         contato.setNome(dto.nome);
         contato.setTelefone(dto.numero);
 
-        _service.CriarNovoContato(contato);
+        _service.CriarContato(contato);
         URI location = URI.create("/contatos/");
 
         responseMessage.messagem = "Contato criado com sucesso.";
@@ -78,7 +78,7 @@ public class ContatoController {
 
     @GetMapping("/by-id")
     public ResponseEntity buscarPorId(@RequestParam Long id) {
-        ContatoResponse contatoResponse1 = _service.BuscarContatoPorId(id);
+        ContatoResponse contatoResponse1 = _service.BuscarContatoId(id);
 
         if (contatoResponse1 == null){
             ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseMessage("Contato não encontrado"));
@@ -117,7 +117,7 @@ public class ContatoController {
     public ResponseEntity<ResponseMessage> deletarPorPrefixo(@RequestParam String prefixo) {
         ResponseMessage responseMessage = new ResponseMessage();
         try {
-            _service.DeletarContatosPorPrefixo(prefixo);
+            _service.DeletarPrefixo(prefixo);
             responseMessage.messagem = "Contatos deletados com sucesso.";
             return ResponseEntity.ok(responseMessage);
         } catch (Exception e) {
